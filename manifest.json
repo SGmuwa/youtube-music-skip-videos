@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Music skip videos",
+  "description": "If the current track is a video then skips it. Optionally, that extension can put 👎 or/and add to a separate playlist.",
+  "version": "1.0",
+  "icons": {
+    "512": "icons/512.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://music.youtube.com/*",
+        "https://music.youtube.com/*"
+      ],
+      "js": [
+        "app.js"
+      ]
+    }
+  ]
+}
