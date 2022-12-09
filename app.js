@@ -15,30 +15,40 @@ function fetchElement() {
             }
 
             function openInMenuOfSongAddToPlaylist() {
-                return document.querySelector("body > ytmusic-app > ytmusic-popup-container > tp-yt-iron-dropdown:nth-child(2) > div > ytmusic-menu-popup-renderer > tp-yt-paper-listbox").children[4].getElementsByTagName("a")[0].click()
+                return document.querySelector("body > ytmusic-app > ytmusic-popup-container > tp-yt-iron-dropdown:nth-child(2) > div > ytmusic-menu-popup-renderer > tp-yt-paper-listbox").children[4].getElementsByTagName("a")[0].click();
             }
 
             function searchPlaylistsMenu() {
-                return document.querySelector("#top-shelf > ytmusic-carousel-shelf-renderer > div > ytmusic-carousel > div > ul")
+                return document.querySelector("#top-shelf > ytmusic-carousel-shelf-renderer > div > ytmusic-carousel > div > ul");
+            }
+
+            function closeInMenuOfSongAddToPlaylist() {
+                document.querySelector("#contentWrapper > ytmusic-add-to-playlist-renderer > div.top-bar.style-scope.ytmusic-add-to-playlist-renderer > tp-yt-paper-icon-button").click();
             }
 
             console.debug('addToVideosPlaylist...');
 
             window.setTimeout(
                 () => {
-                    openMenuOfSong()
+                    openMenuOfSong();
                     window.setTimeout(
                         () => {
-                            openInMenuOfSongAddToPlaylist()
+                            openInMenuOfSongAddToPlaylist();
                             window.setTimeout(() => {
+                                let found = false;
                                 searchPlaylistsMenu().childNodes.forEach(playlist => {
-                                    playlist = playlist.getElementsByClassName('yt-simple-endpoint')[0]
+                                    playlist = playlist.getElementsByClassName('yt-simple-endpoint')[0];
                                     if (playlist.title === '📹👎') {
-                                        console.debug("playlist found:", playlist)
-                                        playlist.click()
+                                        found = true;
+                                        console.debug("playlist found:", playlist);
+                                        playlist.click();
                                     }
                                 })
-                                callback()
+                                if (!found) {
+                                    closeInMenuOfSongAddToPlaylist();
+                                    throw 'Not found playlist «📹👎»';
+                                }
+                                window.setTimeout(callback, 1000);
                             }, 1000);
                         }, 1000
                     );
