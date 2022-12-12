@@ -66,7 +66,7 @@ function fetchElement() {
 
             console.debug("dislike?")
 
-            const dislikeButton = document.querySelector('.dislike');
+            const dislikeButton = document.querySelector('.ytmusic-player-bar .dislike');
 
             if(dislikeButton.getAttribute('aria-pressed') !== 'true') {
                 console.debug("dislike!")
